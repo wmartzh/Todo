@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'accounts',
 
     ##Libraries
-    'rest_framework'
+    'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -52,6 +54,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware'
 ]
 
 ROOT_URLCONF = 'server.urls'
@@ -81,7 +85,7 @@ WSGI_APPLICATION = 'server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'db_todo',
+        'NAME': 'db_todow',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
@@ -132,3 +136,14 @@ STATIC_URL = '/static/'
 
 ##custom auth model
 AUTH_USER_MODEL = "accounts.CustomUser"
+
+##rest framework
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated',],
+    'DEFAULT_AUTHENTICATION_CLASSES':['rest_framework.authentication.SessionAuthentication']
+}
+
+##cors
+CORS_ORIGIN_WHITELIST = [
+     "http://127.0.0.1:8000"
+]
